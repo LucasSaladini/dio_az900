@@ -190,7 +190,25 @@ curl -X POST "http://localhost:4577/subscriptions/00000000-0000-0000-0000-000000
 ### 3. Visual Validation (Floci-AZ UI)
 
 Below are screenshots demonstrating the Floci-AZ environment and the created resource group:
-Figure 1: Custom cloud setup and initialization in Floci-AZ.
+*Figure 1: Custom cloud setup and initialization in Floci-AZ.*
 ![Virtual Machine Creation](images/VM_creation.png)
-Figure 2: Resource group successfully provisioned and displayed in the Floci-AZ dashboard.
+*Figure 2: Resource group successfully provisioned and displayed in the Floci-AZ dashboard.*
 ![Virtual Machine Dashboard](images/VM_dashboard.png)
+
+### 4. Creating a Database Server (PaaS Simulation)
+
+In alignment with the **Platform as a Service (PaaS)** model - where underlying server infrastructure is abstracted away - the database instance in Floci-AZ was provisioned by selecting the PostgreSQL engine directly, leveraging a local PostgreSQL image already cached in `docker images`.
+
+After provisioning the instance (Figure 3), it appeared immediately on the dashboard ready for connections (Figure 4). To validate that the service was set up correctly, test queries were executed directly through the Floci-AZ UI against both the `postgres` and `template1` databases (Figures 5 and 6).
+
+*Figure 3: Database setup and initialization in Floci-AZ.*
+![Database Creation](images/DB_creation.png)
+
+*Figure 4: Database successfully provisioned and displayed in the Floci-AZ dashboard.*
+![Database Dashboard](images/DB_dashboard.png)
+
+*Figure 5: Test query executed against the `postgres` database.*
+![Database Query on Postgres Database](images/DB_query_on_postgres_database.png)
+
+*Figure 6: Test query executed against the `template1` database.*
+![Database Query on Template1 Database](images/DB_query_on_template1_database.png)
