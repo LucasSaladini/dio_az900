@@ -232,3 +232,28 @@ To properly plan the IP capacity, the address calculation accounts for both stan
 
 *Figure 9: Details of the Virtual Network.*
 ![VNet details](images/VNet_details.png)
+
+## Utilities & Automation Scripts
+
+To streamline IP capacity planning and respect Azure's specific reservation rules (such as the 5 reserved IPs per subnet) directly from the terminal, a custom Bash utility was developed: `cidr_calculator.sh`.
+
+### Usage
+
+Make sure the script has execution permissions:
+
+```bash
+chmod +x ./scripts/cidr_calculator.sh
+```
+
+You can pass either a full CIDR block or just the prefix number:
+
+```bash
+./scripts/cidr_calculator.sh 10.0.1.0/24
+```
+
+Or simply:
+
+```bash
+./scripts/cidr_calculator.sh 24
+```
+
