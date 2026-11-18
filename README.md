@@ -180,7 +180,7 @@ Because internal MSAL token validation in the Azure CLI restricts standard `az l
 The `POST` method was sent to the emulator's official subscription ID(`00000000-0000-0000-0000-000000000001`), establishing the logical container `Lab_Dio` in the `eastus` region and return a `Succeeded` provisioning state for immediate UI synchronization (`/_floci/ui`).
 
 ```bash
-curl -X POST "http://localhost:4577/subscriptions/00000000-0000-0000-0000-000000000001/resourcegroups/Lab_Dio?api-version=2021-04-01" \
+curl -X PUT "http://localhost:4577/subscriptions/00000000-0000-0000-0000-000000000001/resourcegroups/Lab_Dio?api-version=2021-04-01" \
   -H "Content-Type: application/json" \
   -d '{
     "location": "eastus"
@@ -212,3 +212,23 @@ After provisioning the instance (Figure 3), it appeared immediately on the dashb
 
 *Figure 6: Test query executed against the `template1` database.*
 ![Database Query on Template1 Database](images/DB_query_on_template1_database.png)
+
+### 5. Creating a Virtual Network (VNet)
+
+The networking architecture was designed ensuring that the VNet CIDR acts as the encompassing container (`/16`), while the database subnet acts as the contained segment (`/24`), respecting Azure's minimum allocation and spacing rules.
+
+To properly plan the IP capacity, the address calculation accounts for both standard IP boundaries (network and broadcast addresses) and Azure's internal reservation policy (which reserves the first 4 and the last IP in every subnet, totaling 5 reserved IPs).
+
+| Scope                           | CIDR Block  | Total IPs (2^(32-n)) | Available IPs (Minus Network & Broadcast) | Usable IPs in Azure (Minus 5 Reserved IPs) |
+|---------------------------------|-------------|----------------------|-------------------------------------------|--------------------------------------------|
+| Virtual Network (VNet)         | 10.0.0.0/16 | 65,536               | 66,534                                    | 65,351                                     |
+| Database Subnet (snet-database) | 10.0.1.0/24 | 256                  | 254                                       | 251                                        |
+
+*Figure 7: Virtual Network setup in Floci-AZ.*
+![VNet Creation](images/VNet_creation.png)
+
+*Figure 8: Virtual Network successfully created and displayed in the Floci-AZ dashboard.*
+![VNet Dashboard](images/VNet_dashboard.png)
+
+*Figure 9: Details of the Virtual Network.*
+![VNet details](images/VNet_details.png)
